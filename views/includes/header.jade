@@ -1,0 +1,84 @@
+.container.col-md-8
+nav.navbar.navbar-default(role="navigation")
+  .navbar-header
+    button.navbar-toggle(type="button" data-toggle="collapse" data-target="#example-navbar-collapse")
+      span.sr-only 切换导航
+      span.icon-bar
+      span.icon-bar
+      span.icon-bar
+    a.navbar-brand(href="/") 蜗牛冒险
+  .collapse.navbar-collapse#example-navbar-collapse
+    ul.nav.navbar-nav
+      //- li.active<a href="http://wd.wnmxd.com">蜗牛冒险</a>
+      li <a href="/post">发问</a>
+      li <a href="/archive">存档</a>      
+      li <a href="/tags">标签</a>
+      li <a href="http://bbs.wnmxd.com/">论坛</a>
+      li <a href="#">贴吧</a>
+      li <a href="#">视频</a>
+      li <a href="#">下载</a>
+      li.dropdown
+        a.dropdown-toggle(href="#" data-toggle="dropdown") 问答 <b class="caret"></b>
+        ul.dropdown-menu
+          li <a href="/install">下载安装</a>
+          li <a href="/level">升级</a>
+          li <a href="/quest">任务</a>
+          li <a href="/results?cat=54e5d1ffcfe1277606f0ce4b&p=0">技能</a>
+          li <a href="/item">物品</a>
+          li <a href="/pay">赞助</a>
+nav.navbar.navbar-default.navbar-fixed-bottom(role="navigation",padding-top:50px;)
+  .container
+    .navbar-header
+    form.navbar-form.navbar-left(role="search",method='GET',action='/search')
+      .form-group
+        input.form-control(type="text",name='keyword',placeholder="有问题搜搜看")
+      button.btn.btn-default(type="submit") 搜索
+    if user
+      p.navbar-text.navbar-right
+        span 欢迎您,#{user.name}
+        span &nbsp;|&nbsp;
+        a.navbar-link(href="/logout") 登出
+    else
+      p.navbar-text.navbar-right
+        a.navbar-link(href="#", data-toggle="modal", data-target="#regModal") 注册
+        span &nbsp;|&nbsp;
+        a.navbar-link(href="#", data-toggle="modal", data-target="#loginModal") 登录
+#regModal.modal.fade
+  .modal-dialog
+    .modal-content
+      form(method="POST", action="/reg")
+        .modal-header 蜗牛冒险 用户注册
+        .modal-body
+          .form-group
+            label(for="regName") 用户名
+            input#regName.form-control(name="name", type="text")
+          .form-group
+            label(for="regPassword") 密码
+            input#regPassword.form-control(type="password",name="password")
+          .form-group
+            label(for="regPassword-repeat") 确认密码
+            input#regPassword-repeat.form-control(name="repassword", type="password")
+          .form-group
+            label(for="regEmail") 邮箱
+            input#regEmail.form-control(name="email", type="text")
+          .form-group
+            label(for="regQq") QQ
+            input#regQq.form-control(name="qq", type="text")    
+        .modal-footer
+          button.btn.btn-default(type="button", data-dismiss="modal") 关闭
+          button.btn.btn-success(type="submit") 提交
+#loginModal.modal.fade
+  .modal-dialog
+    .modal-content
+      form(method="POST", action="/login")
+        .modal-header 登录
+        .modal-body
+          .form-group
+            label(for="loginName") 用户名
+            input#loginName.form-control(name="name", type="text")
+          .form-group
+            label(for="loginPassword") 密码
+            input#loginPassword.form-control(name="password", type="password")
+        .modal-footer
+          button.btn.btn-default(type="button", data-dismiss="modal") 关闭
+          button.btn.btn-success(type="submit") 提交

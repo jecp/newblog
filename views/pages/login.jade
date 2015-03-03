@@ -1,0 +1,19 @@
+extends ../layout
+
+block content
+  .container
+    h3 #{title}
+    .row
+      .col-md-5
+        form(method="POST", action="/login")
+          .modal-body
+            .form-group
+              label(for="loginName") 用户名
+              input#loginName.form-control(name="name", type="text")
+            .form-group
+              label(for="loginPassword") 密码
+              input#loginPassword.form-control(name="password", type="password")
+          .modal-footer
+            button.btn.btn-default(type="button", data-dismiss="modal") 关闭
+            button.btn.btn-success(type="submit") 提交
+  .span(style="padding-bottom:100px;") 

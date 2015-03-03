@@ -1,0 +1,45 @@
+extends ../layout
+
+block content
+  .container
+    .panel.panel-default
+      - posts.forEach(function(post,index){
+        .panel-heading
+          h4
+            a(href="/u/#{post.name}/#{post.time.day}/#{post.title}") #{post.title}
+            a(href="/u/#{post.name}")
+              img(src="#{post.head}",class="r_head")
+        .panel-body 类别：
+          a(href="/cat/#{post.category}") #{post.category}
+          span &nbsp;
+            || 作者：
+            a(href="/u/#{post.name}") #{post.name}
+            span &nbsp;
+            || 发表日期： #{post.time.minute}
+            || 标签：
+            - post.tags.forEach(function(tag,index){
+              -  if(tag){
+                   span &nbsp;
+                     a(class="tag" href="/tags/#{tag}")
+                       span.label.label-info #{tag}
+              -  } 
+            -})
+            span &nbsp;
+            if(post.reprint_info.reprint_from)
+              a(href="/u/#{post.reprint_info.reprint_from.name}/#{post.reprint_info.reprint_from.day}/#{post.reprint_info.reprint_from.title}")
+                span.label.label-danger 原文链接
+          p.text-muted
+            span &nbsp;
+            != post.post
+            span &nbsp;
+          p.info
+            阅读：#{post.pv} | 
+            评论：#{post.comments.length} | 
+            转载：
+            - if(post.reprint_info.reprint_to){
+              span #{post.reprint_info.reprint_to.length}
+            - }else{
+                span 0
+            - }
+      - })
+  .span(style="padding-bottom:100px;") 

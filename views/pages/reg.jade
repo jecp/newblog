@@ -1,0 +1,28 @@
+extends ../layout
+
+block content
+  .container
+    h3 #{title}
+    .row
+      .col-md-5
+        form(method="POST", action="/reg")
+          .modal-body
+            .form-group
+              label(for="regName") 用户名
+              input#regName.form-control(name="name", type="text")
+            .form-group
+              label(for="regPassword") 密码
+              input#regPassword.form-control(name="password", type="password")
+            .form-group
+              label(for="regRepassword") 确认密码
+              input#regRepassword.form-control(name="repassword", type="password")
+            .form-group
+              label(for="regEmail") 邮箱
+              input#regEmail.form-control(name="email", type="text")
+            .form-group
+              label(for="regQq") QQ
+              input#regQq.form-control(name="qq", type="text")  
+          .modal-footer
+            button.btn.btn-default(type="button", data-dismiss="modal") 关闭
+            button.btn.btn-success(type="submit") 提交
+  .span(style="padding-bottom:100px;") 

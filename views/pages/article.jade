@@ -1,0 +1,68 @@
+extends ../layout
+
+block content
+  .container
+    .row
+      .panel.panel-default
+        .panel-heading.text-right 问题详情
+        ul.list-group
+          li.list-group-item.h4 #{post.title}
+            span &nbsp;&nbsp;
+            if(user && (user.name == post.name))
+              button.btn.btn-info
+                a(class="edit",href="/edit/#{post.name}/#{post.time.day}/#{post.title}") 编辑
+              span &nbsp;
+              button.btn.btn-danger
+                a(class="edit",href="/remove/#{post.name}/#{post.time.day}/#{post.title}") 删除
+            - var flag=1
+            - if(user && (user.name!=post.name)){
+              - if((post.reprint_info.reprint_from != undefined) && (user.name == post.reprint_info.reprint_from.name)){
+                - flag=0
+              - }
+              - if (post.reprint_info.reprint_to!=undefined){
+                - post.reprint_info.reprint_to.forEach(function(reprint_to,index){
+                  - if(user.name==reprint_to.name){
+                    - flag=0
+                  - }
+                - })
+              - }
+            - } else{
+              - flag = 0
+            - }
+            - if(flag){
+                a(class="edit",href="/reprint/#{post.name}/#{post.time.day}/#{post.title}")
+                  span.label.label-info 转载
+            - }
+          li.list-group-item 类别：
+            a(href="/cat/#{post.category}") #{post.category}
+            span &nbsp;
+            || 作者：
+            a(href="/u/#{post.name}") #{post.name}
+            span &nbsp;
+            || 发表日期： #{post.time.minute}
+            span &nbsp;
+            || 标签：
+            - post.tags.forEach(function(tag,index){
+              if (tag)
+                   span &nbsp;
+                     a(class="tag" href="/tags/#{tag}")
+                       span.label.label-info #{tag}
+            -})
+            span &nbsp;
+            if(post.reprint_info.reprint_from)
+              a(href="/u/#{post.reprint_info.reprint_from.name}/#{post.reprint_info.reprint_from.day}/#{post.reprint_info.reprint_from.title}")
+                span.label.label-danger 原文链接
+          li.list-group-item.text-muted
+            p
+            != post.post
+            p
+          li.list-group-item
+            阅读：#{post.pv} | 
+            评论：#{post.comments.length} | 
+            转载：
+            if (post.reprint_info.reprint_to)
+              span #{post.reprint_info.reprint_to.length}
+            else
+              span 0
+      include comment
+.span(style="padding-bottom:120px;") 

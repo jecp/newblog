@@ -1,0 +1,16 @@
+extends ../layout
+
+block content
+  .connainer
+    .col-sm-10
+      ul.list-group.archive
+        - var lastYear=0
+        - posts.forEach(function(post,index){
+            if(lastYear != post.time.year)
+              li.list-group-item.h3 #{post.category}
+          - lastYear=post.time.year
+              li.list-group-item #{post.time.day}  
+                a(href="/u/#{post.name}/#{post.time.day}/#{post.title}") #{post.title}
+        - })
+          .span(style="padding-bottom:120px;") 
+      //- include paging

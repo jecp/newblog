@@ -1,0 +1,50 @@
+.panel.panel-info
+  .panel-heading
+    h5.text-right 留言区
+  ul.list-group
+    - post.comments.forEach(function(comment,index){
+       span &nbsp;&nbsp;&nbsp;
+         img(src="#{comment.head}")
+         a(href="#{comment.website}") #{comment.name}
+       span  回复于 #{comment.time}
+    li.list-group-item
+      p.text-muted 
+        != comment.content
+    - })
+.panel.panel-primary
+  .panel-heading.text-right 我来回答
+  .panel-body
+    form.form-group(method="post",role="form")
+      if(user)
+        .form-group
+          label.col-sm-1.control-label(for="inputCharname") 昵称
+          .col-sm-3
+            input.form-control(type="text", name="name", value="#{user.name}")
+        .form-group
+          label.col-sm-1.control-label(for="inputEmail") 邮箱
+          .col-sm-3
+            input.form-control(type="text", name="email", value="#{user.email}")
+        .form-group
+          label.col-sm-1.control-label 网址
+          .col-sm-3
+            input.form-control(type="text", name="website", value="/u/#{user.name}")
+      else
+        .form-group
+          label.col-sm-1.control-label(for="inputCharname") 昵称
+          .col-sm-3
+            input.form-control(type="text", name="name")
+        .form-group
+          label.col-sm-1.control-label(for="inputEmail") 邮箱
+          .col-sm-3
+            input.form-control(type="text", name="email")
+        .form-group
+          label.col-sm-1.control-label 网址
+          .col-sm-3
+            input.form-control(type="text", name="website", value="http://")
+      .form-group
+        span &nbsp;
+          textarea.form-control(name="content", row="5", cols="80",placeholder="亲，最好言之有物哦〜")
+          if user
+            button.btn.btn-lg.btn-block.btn-primary(type="submit",value="留言") 回复
+          else
+            a.navbar-link(href="#", data-toggle="modal", data-target="#loginModal") 请登录后评论

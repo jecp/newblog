@@ -1,0 +1,10 @@
+extends ../layout
+
+block content
+  .container
+    .row
+     - posts.forEach(function(tag,index){
+         span &nbsp;
+           a(class="tag",href="/tags/#{tag}")
+             span.label.label-info #{tag}
+     - })
