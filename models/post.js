@@ -296,7 +296,7 @@ Post.getCategory = function(category,callback) {
           return callback(err);
         }
         callback(null, docs);
-        console.log(docs);
+        //console.log(docs);
       });
     });
   });
